@@ -1,8 +1,7 @@
 # Newline Linter
 
-> **3.206 Line**
->
-> A sequence of zero or more non- <newline> characters plus a terminating <newline> character.
+> **3.206 Line**<br>
+> A sequence of zero or more non-\<newline\> characters plus a terminating \<newline\> character.
 
 ## GitHub Action
 
@@ -24,6 +23,6 @@
 
 Install `git-no-newline` in your path and run
 ```shell
-$ git no-newline
+git no-newline
 ```
 in a Git repository to list non-binary files that do not terminate in a newline.
