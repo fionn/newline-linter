@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+readonly EXCLUDE_PATTERN="${EXCLUDE_PATTERN:-""}"
+readonly GITHUB_ACTIONS="${GITHUB_ACTIONS:-""}"
+
+function file_ends_with_newline {
+    [[ $(tail -c1 "$1" | wc -l) -gt 0 ]]
+}
+
+function filter_exclusions {
+    ([[ -z "$EXCLUDE_PATTERN" ]] && cat) || grep -v "$EXCLUDE_PATTERN"
+}
+
+function log_file {
+    file="$1"
+    echo "$file: no newline at end of file" >&2
+    if [[ "$GITHUB_ACTIONS" == "true" ]]; then
+        last_line=$(wc -l <<< "$file" | tr -d " ")
+        echo "::error file=$file,line=$last_line,col=0::No newline at end of file."
+    fi
+}
+
+function main {
+    count=0
+    mapfile -t tracked_files < <(git grep --cached -Il "" | filter_exclusions)
+
+    for file in "${tracked_files[@]}"; do
+        if ! file_ends_with_newline "$file"; then
+            log_file "$file"
+            ((count+=1))
+        fi
+    done
+
+    return $(( count < 255 ? count : 255 ))
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi
