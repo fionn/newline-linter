@@ -18,3 +18,7 @@ runs:
       shell: bash
       env:
         EXCLUDE_PATTERN: ${{ inputs.exclusion_pattern }}
+
+branding:
+  color: green
+  icon: slash
