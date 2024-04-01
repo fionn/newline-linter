@@ -1,4 +1,6 @@
-on: push
+name: CI
+
+on: [push, pull_request]
 
 jobs:
 
@@ -7,10 +9,31 @@ jobs:
     name: Lint newlines
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      pull-requests: write
+
     steps:
 
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Lint newlines
+        id: lint_newlines
         uses: fionn/newline-linter@master
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        if: |
+          failure() && steps.lint_newlines.outcome == 'failure'
+          && github.event_name == 'pull_request' && github.event.action == 'opened'
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `Some files do not end in newlines. \
+                See [_No Newline at End of File_](https://thoughtbot.com/blog/no-newline-at-end-of-file) \
+                for how to fix your editor configuration.`
+            })
