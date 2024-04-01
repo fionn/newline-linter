@@ -14,7 +14,7 @@ runs:
   steps:
 
     - name: Lint newline
-      run: ./git-no-newlines
+      run: ${{ github.action_path }}/git-no-newlines
       shell: bash
       env:
         EXCLUDE_PATTERN: ${{ inputs.exclusion_pattern }}
