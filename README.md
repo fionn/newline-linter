@@ -23,8 +23,8 @@ See [this repository's workflow](.github/workflows/main.yml) for a more complete
 
 ## Git Subcommand
 
-Install `git-no-newline` in your path and run
+Install `git-no-newlines` in your path and run
 ```shell
-git no-newline
+git no-newlines
 ```
 in a Git repository to list non-binary files that do not terminate in a newline.
