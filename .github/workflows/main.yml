@@ -18,6 +18,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@2.0.0
+
       - name: Lint newlines
         id: lint_newlines
         uses: fionn/newline-linter@master
