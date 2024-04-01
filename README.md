@@ -16,8 +16,10 @@
 - name: Lint newlines
   uses: fionn/newline-linter@master
   with:
-    exclusion_pattern: not_text.jpeg
+    exclusion_pattern: intentionally_unterminated_file
 ```
+
+See [this repository's workflow](.github/workflows/main.yml) for a more complete example.
 
 ## Git Subcommand
 
