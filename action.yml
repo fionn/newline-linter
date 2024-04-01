@@ -1,5 +1,5 @@
-name: "Newline Linter"
-description: "Lint files that don't end in a newline"
+name: Newline Linter
+description: Find text files that do not end in a newline
 
 inputs:
 
