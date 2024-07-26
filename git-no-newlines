@@ -17,7 +17,7 @@ function log_file {
     file="$1"
     echo "$file: no newline at end of file" >&2
     if [[ "$GITHUB_ACTIONS" == "true" ]]; then
-        last_line=$(wc -l <<< "$file" | tr -d " ")
+        last_line=$(wc -l < "$file" | tr -d " ")
         echo "::error file=$file,line=$last_line,col=0::No newline at end of file."
     fi
 }
