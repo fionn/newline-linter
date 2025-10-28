@@ -2,6 +2,8 @@ name: CI
 
 on: [push, pull_request]
 
+permissions: {}
+
 jobs:
 
   lint_newlines:
@@ -17,6 +19,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@2.0.0
